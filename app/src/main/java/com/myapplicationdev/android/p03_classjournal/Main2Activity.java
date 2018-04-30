@@ -18,6 +18,7 @@ public class Main2Activity extends AppCompatActivity {
     ListView lv;
     ArrayAdapter aa;
     ArrayList<DailyGrade> grade;
+    final int requestCodeForAdd = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,19 @@ public class Main2Activity extends AppCompatActivity {
         //  each row and the food String array together
         aa = new GradeAdapter(this, R.layout.row, grade);
         lv.setAdapter(aa);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2Activity.this, AddActivity.class);
+                String weeks = intent.getStringExtra("week");
+                String dailygrades = intent.getStringExtra("dailygrade");
+
+                DailyGrade newGrade = new DailyGrade(weeks, dailygrades);
+                startActivityForResult(intent,requestCodeForAdd);
+                grade.add(newGrade);
+            }
+        });
 
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -88,4 +102,29 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Only handle when 2nd activity closed normally
+        //  and data contains something
+        if(resultCode == RESULT_OK){
+            if (data != null) {
+                // Get data passed back from 2nd activity
+                String dailygrade = data.getStringExtra("dailygrade");
+                String statement = "";
+                grade = new ArrayList<DailyGrade>();
+                int weeknum=(grade.size()+2);
+
+                grade.add(new DailyGrade("Week "+weeknum , dailygrade));
+                // If it is activity started by clicking 	//  Superman, create corresponding String
+                if(requestCode == requestCodeForAdd){
+                    statement = "New item Added";
+                }
+                Toast.makeText(Main2Activity.this, statement,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }
