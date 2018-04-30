@@ -1,5 +1,6 @@
 package com.myapplicationdev.android.p03_classjournal;
 
+
 public class DailyGrade {
     private String week;
     private String grade;
