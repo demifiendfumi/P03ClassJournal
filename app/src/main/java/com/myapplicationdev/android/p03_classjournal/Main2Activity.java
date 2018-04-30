@@ -76,12 +76,12 @@ public class Main2Activity extends AppCompatActivity {
                                 "Please see my remarks so far, thankyou!");
                 for(int i = 0; i < grade.size(); i++) {
                     message += grade.get(i).getWeek() +
-                                    " DG: " +
-                                    grade.get(i).getGrade()
-                    + "\n";
+                            " DG: " +
+                            grade.get(i).getGrade()
+                            + "\n";
                 }
                 email.putExtra(Intent.EXTRA_TEXT,
-                message);
+                        message);
                 email.setType("message/rfc822");
                 startActivity(Intent.createChooser(email,
                         "Choose an Email client :"));
