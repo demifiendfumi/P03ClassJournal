@@ -17,7 +17,7 @@ public class Main2Activity extends AppCompatActivity {
 
     ListView lv;
     ArrayAdapter aa;
-    ArrayList<DailyGrade> grade;
+    ArrayList<DailyGrade> grade = new ArrayList<DailyGrade>();
     final int requestCodeForAdd = 1;
     int weeknum = 0;
 
@@ -35,7 +35,6 @@ public class Main2Activity extends AppCompatActivity {
         String item = i.getStringExtra("item");
 
         // Create a few food objects in Food array
-        grade = new ArrayList<DailyGrade>();
         if(item.equals("C347")){
             grade.add(new DailyGrade("week 1", "B"));
             grade.add(new DailyGrade("week 2", "C"));
@@ -105,27 +104,29 @@ public class Main2Activity extends AppCompatActivity {
         });
         //lv.setAdapter();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Only handle when 2nd activity closed normally
         //  and data contains something
-        if(resultCode == RESULT_OK){
-            if (data != null) {
-                // Get data passed back from 2nd activity
-                String dailygrade = data.getStringExtra("dailygrade");
-                String statement = "";
-                // If it is activity started by clicking 	//  Superman, create corresponding String
-                if(requestCode == requestCodeForAdd){
-                    grade = new ArrayList<DailyGrade>();
-                    weeknum += 1;
-                    grade.add(new DailyGrade("Week "+weeknum , dailygrade));
-                    statement = "Week " + weeknum + " DG " + dailygrade;
-                    //aa.notifyDatasetChanged();
+        if (requestCode == requestCodeForAdd) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    // Get data passed back from 2nd activity
+                    String dailygrade = data.getStringExtra("dailygrade");
+                    String statement = "";
+                    // If it is activity started by clicking 	//  Superman, create corresponding String
+                    if (requestCode == requestCodeForAdd) {
+                        weeknum += 1;
+                        grade.add(new DailyGrade("Week " + weeknum, dailygrade));
+                        statement = "Week " + weeknum + " DG " + dailygrade;
+                        aa.notifyDataSetChanged();
+                    }
+                    Toast.makeText(Main2Activity.this, statement,
+                            Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(Main2Activity.this, statement,
-                        Toast.LENGTH_LONG).show();
             }
         }
     }
