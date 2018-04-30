@@ -4,25 +4,45 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    TextView tvNext;
+
+
+    ArrayList<String> al;
+    ArrayAdapter<String> aa;
+
+    ListView lvModules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvNext = (TextView)findViewById(R.id. textView);
+        lvModules = (ListView) findViewById(R.id.lvModules);
+        al = new ArrayList<String>();
+        al.add("C347");
 
-        tvNext.setOnClickListener(new View.OnClickListener() {
+        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, al);
+        lvModules.setAdapter(aa);
+
+        lvModules.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Main2Activity.class);
-                i.putExtra("item",tvNext.getText());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MainActivity.this,
+                        Main2Activity.class);
+                // Put hero object in intent
+                i.putExtra("item", "C347");
+
                 startActivity(i);
             }
+
         });
 
-    }
+        }
 }
+
+
