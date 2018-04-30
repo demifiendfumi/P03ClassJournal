@@ -1,7 +1,9 @@
 package com.myapplicationdev.android.p03_classjournal;
 
 
-public class DailyGrade {
+import java.io.Serializable;
+
+public class DailyGrade implements Serializable {
     private String week;
     private String grade;
     public DailyGrade(String week, String grade){

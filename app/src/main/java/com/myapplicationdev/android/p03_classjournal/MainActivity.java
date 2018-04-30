@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this,
                         Main2Activity.class);
                 // Put hero object in intent
-                String code= String.valueOf(lvModules.getItemIdAtPosition(position));
-                i.putExtra("item", code);
+                //String code= String.valueOf(lvModules.getItemIdAtPosition(position));
+                //Toast.makeText(MainActivity.this, code, Toast.LENGTH_SHORT);
+                i.putExtra("item", "C347");
 
                 startActivity(i);
             }

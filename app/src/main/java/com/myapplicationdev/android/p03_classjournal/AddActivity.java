@@ -38,6 +38,7 @@ public class AddActivity extends AppCompatActivity {
                 //Show a Toast that display the text on the selected radio button
                 Toast.makeText(getBaseContext(),rb.getText(), Toast.LENGTH_LONG).show();
                 Intent i = new Intent();
+                //String week = tvHeader.getText() + "";
                 i.putExtra("dailygrade", rb.getText());
                 i.putExtra("week",tvHeader.getText());
                 // Set result to RESULT_OK to indicate normal

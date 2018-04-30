@@ -19,13 +19,13 @@ public class Main2Activity extends AppCompatActivity {
     ArrayAdapter aa;
     ArrayList<DailyGrade> grade;
     final int requestCodeForAdd = 1;
+    int weeknum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        //test update
         lv = (ListView) this.findViewById(R.id.lvWeek);
         Button btnInfo = (Button)findViewById(R.id. buttonInfo);
         Button btnAdd = (Button)findViewById(R.id. buttonAdd);
@@ -42,6 +42,8 @@ public class Main2Activity extends AppCompatActivity {
             grade.add(new DailyGrade("week 3", "A"));
         }
 
+        weeknum = grade.size();
+
         // Link this Activity object, the row.xml layout for
         //  each row and the food String array together
         aa = new GradeAdapter(this, R.layout.row, grade);
@@ -51,12 +53,12 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main2Activity.this, AddActivity.class);
-                String weeks = intent.getStringExtra("week");
-                String dailygrades = intent.getStringExtra("dailygrade");
+                //String weeks = intent.getStringExtra("week");
+                //String dailygrades = intent.getStringExtra("dailygrade");
 
-                DailyGrade newGrade = new DailyGrade(weeks, dailygrades);
+                //DailyGrade newGrade = new DailyGrade(weeks, dailygrades);
                 startActivityForResult(intent,requestCodeForAdd);
-                grade.add(newGrade);
+                //grade.add(newGrade);
             }
         });
 
@@ -101,6 +103,7 @@ public class Main2Activity extends AppCompatActivity {
                         "Choose an Email client :"));
             }
         });
+        //lv.setAdapter();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,13 +116,13 @@ public class Main2Activity extends AppCompatActivity {
                 // Get data passed back from 2nd activity
                 String dailygrade = data.getStringExtra("dailygrade");
                 String statement = "";
-                grade = new ArrayList<DailyGrade>();
-                int weeknum=(grade.size()+2);
-
-                grade.add(new DailyGrade("Week "+weeknum , dailygrade));
                 // If it is activity started by clicking 	//  Superman, create corresponding String
                 if(requestCode == requestCodeForAdd){
-                    statement = "New item Added";
+                    grade = new ArrayList<DailyGrade>();
+                    weeknum += 1;
+                    grade.add(new DailyGrade("Week "+weeknum , dailygrade));
+                    statement = "Week " + weeknum + " DG " + dailygrade;
+                    //aa.notifyDatasetChanged();
                 }
                 Toast.makeText(Main2Activity.this, statement,
                         Toast.LENGTH_LONG).show();
