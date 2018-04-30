@@ -1,6 +1,7 @@
 package com.myapplicationdev.android.p03_classjournal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,5 +45,46 @@ public class Main2Activity extends AppCompatActivity {
         aa = new GradeAdapter(this, R.layout.row, grade);
         lv.setAdapter(aa);
 
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent rpIntent = new Intent(Intent.ACTION_VIEW);
+
+
+
+                // Set the URL to be used.
+                rpIntent.setData(Uri.parse("http://www.rp.edu.sg"));
+                startActivity(rpIntent);
+            }
+        });
+
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = "";
+
+                Intent email = new Intent(Intent.ACTION_SEND);
+
+                email.putExtra(Intent.EXTRA_EMAIL,
+                        new String[]{"jason_lim@rp.edu.sg"});
+                email.putExtra(Intent.EXTRA_SUBJECT,
+                        "Hi faci," +
+                                "I am ..." +
+                                "\n" +
+                                "Please see my remarks so far, thankyou!");
+                for(int i = 0; i < grade.size(); i++) {
+                    message += grade.get(i).getWeek() +
+                                    " DG: " +
+                                    grade.get(i).getGrade()
+                    + "\n";
+                }
+                email.putExtra(Intent.EXTRA_TEXT,
+                message);
+                email.setType("message/rfc822");
+                startActivity(Intent.createChooser(email,
+                        "Choose an Email client :"));
+            }
+        });
     }
 }
