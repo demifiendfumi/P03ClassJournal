@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this,
                         Main2Activity.class);
                 // Put hero object in intent
-                i.putExtra("item", "C347");
+                String code= String.valueOf(lvModules.getItemIdAtPosition(position));
+                i.putExtra("item", code);
 
                 startActivity(i);
             }
