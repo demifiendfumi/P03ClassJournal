@@ -23,6 +23,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        //test update
         lv = (ListView) this.findViewById(R.id.lvWeek);
         Button btnInfo = (Button)findViewById(R.id. buttonInfo);
         Button btnAdd = (Button)findViewById(R.id. buttonAdd);
